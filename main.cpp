@@ -1,0 +1,11 @@
+#include <bits/stdc++.h>
+#include "BigReal.h"
+
+using namespace std;
+
+
+int main() {
+    BigReal obj;
+    obj.hello();
+    return 0;
+}
