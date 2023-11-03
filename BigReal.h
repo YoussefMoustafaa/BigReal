@@ -16,8 +16,9 @@ public:
     BigReal(string realNumber);
     BigReal(const BigReal &real);
     int size();
-    void test();
     BigReal operator + (BigReal &real);
+    BigReal & operator = (const BigReal& real);
+    friend ostream& operator << (ostream& out, const BigReal& real);
 };
 
 
