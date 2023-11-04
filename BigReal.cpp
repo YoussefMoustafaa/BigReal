@@ -37,6 +37,59 @@ int BigReal::size() {
 }
 
 
+bool BigReal::operator > (const BigReal &real) {
+
+    string n1 = num;
+    string n2 = real.num;
+
+    // .9854
+    // .7621
+
+    // 55.134
+    // 55.23
+
+    if (n1.size() > n2.size())
+        return true;
+    else if (n1.size() < n2.size())
+        return false;
+    else {
+        for (int i = 0; i < n1.size(); ++i) {
+            if (n1[i] > n2[i])
+                return true;
+            else if (n1[i] < n2[i])
+                return false;
+        }
+        // if num = num then check fractions
+
+        string f1 = fraction;
+        string f2 = real.fraction;
+
+        int min = abs((int)f1.size() - (int)f2.size());
+
+        if (f1.size() < f2.size()) {
+            for (int i = 0; i < min; ++i) {
+                f1 += '0';
+            }
+        } else {
+            for (int i = 0; i < min; ++i) {
+                f2 += '0';
+            }
+        }
+
+        for (int i = 0; i < f1.size(); ++i) {
+            if (f1[i] > f2[i])
+                return true;
+            else if (f1[i] < f2[i])
+                return false;
+        }
+
+        return false;
+
+    }
+}
+
+
+
 BigReal BigReal::operator + (BigReal &real) {
 
     BigReal result;
@@ -142,6 +195,20 @@ BigReal BigReal::operator + (BigReal &real) {
     return result;
 
 }
+
+
+BigReal BigReal::operator - (BigReal &real) {
+
+    BigReal result;
+    //   000008538959345.3829323232
+    //   232328398429842.9238723000
+
+    // 19345
+    // 09842
+    //
+
+}
+
 
 BigReal & BigReal::operator = (const BigReal& real) {
 
