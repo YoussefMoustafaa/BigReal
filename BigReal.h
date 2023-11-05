@@ -17,7 +17,7 @@ public:
     BigReal(const BigReal &real);
     int size();
     BigReal operator + (BigReal &real);
-    string operator - (BigReal &real);
+    BigReal operator - (BigReal &real);
     BigReal & operator = (const BigReal& real);
     bool operator > (const BigReal &real);
     bool operator < (const BigReal &real);

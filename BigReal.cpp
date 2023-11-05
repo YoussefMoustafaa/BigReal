@@ -285,7 +285,7 @@ BigReal BigReal::operator + (BigReal &real) {
 }
 
 
-string BigReal::operator - (BigReal &real) {
+BigReal BigReal::operator - (BigReal &real) {
 
     BigReal result;
     //   000008538959345.3829323232
@@ -294,7 +294,7 @@ string BigReal::operator - (BigReal &real) {
     // 10005
     // 09842
 
-    if (*this > real || *this == real) {
+//    if (*this > real || *this == real) {
 
         string f1 = fraction;
         string f2 = real.fraction;
@@ -358,7 +358,7 @@ string BigReal::operator - (BigReal &real) {
             new_n2 = n2;
         } else {
             for (int i = 0; i < min2; ++i) {
-                n2 += '0';
+                new_n2 += '0';
             }
             new_n2 += n2;
             new_n1 = n1;
@@ -384,9 +384,13 @@ string BigReal::operator - (BigReal &real) {
 
         reverse(n3.begin(), n3.end());
 
-        return n3;
+        result.num = n3;
+        result.fraction = f3;
+        result.sign = 0;
 
-    }
+        return result;
+
+//    }
 
 }
 
