@@ -15,6 +15,7 @@ public:
     BigReal(double realNumber = 0.0);
     BigReal(string realNumber);
     BigReal(const BigReal &real);
+    BigReal(long long n);
     int size();
     BigReal operator + (BigReal &real);
     BigReal operator - (BigReal &real);

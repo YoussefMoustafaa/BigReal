@@ -12,6 +12,8 @@ int main() {
     //                     2333333333351.0134322222222292000000000000000001
     BigReal n3 = n1 + n2;
     cout << n3;
-    n3 = n3 + BigReal (0.9);
+    string c = "2";
+    string d = "2";
+    cout << c ;
     return 0;
 }

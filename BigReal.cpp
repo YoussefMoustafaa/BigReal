@@ -7,6 +7,10 @@ BigReal::BigReal(double realNumber) {   // default constructor
 }
 
 
+BigReal::BigReal(long long n) {
+}
+
+
 BigReal::BigReal(string realNumber) {   // constructor
     bool flag = false;
     int i = 0;
@@ -204,6 +208,7 @@ bool BigReal::operator != (const BigReal &real) {
     else
         return true;
 }
+
 
 int negative_sign = 0;
 
