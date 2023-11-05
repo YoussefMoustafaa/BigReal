@@ -6,6 +6,7 @@ using namespace std;
 BigReal::BigReal(double realNumber) {   // default constructor
 }
 
+
 BigReal::BigReal(string realNumber) {   // constructor
     bool flag = false;
     int i = 0;
@@ -26,11 +27,13 @@ BigReal::BigReal(string realNumber) {   // constructor
     }
 }
 
+
 BigReal::BigReal(const BigReal &real) {   // copy constructor
     num = real.num;
     fraction = real.fraction;
     sign = real.sign;
 }
+
 
 int BigReal::size() {
 
@@ -205,11 +208,14 @@ bool BigReal::operator != (const BigReal &real) {
 int negative_sign = 0;
 
 
-
 BigReal BigReal::operator + (BigReal &real) {
 
     BigReal result;
-    result.sign = 0;
+
+    if (negative_sign)
+        result.sign = 1;
+    else
+        result.sign = 0;
 
     int firstSign = sign;
     int secondSign = real.sign;
@@ -343,6 +349,36 @@ BigReal BigReal::operator + (BigReal &real) {
 BigReal BigReal::operator - (BigReal &real) {
 
     BigReal result;
+
+    result.sign = 0;
+    int firstSign = sign;
+    int secondSign = real.sign;
+
+    // 1st -ve, 2nd +ve
+    // -4 - 3
+    // 4 + 3 = 7 * (-)
+    if (firstSign > secondSign) {
+        sign = 0;
+        negative_sign = 1;
+        return (*this + real);
+    }
+    // 1st +ve, 2nd -ve
+    // 4 - (-3)
+    // 4 + 3
+    else if (firstSign < secondSign) {
+        real.sign = 0;
+        return (*this + real);
+    }
+    // 1st -ve, 2nd -ve
+    // -4 - (-3) = 1 * (-)
+    // -4 + 3
+    // 3 - 4
+    else if (firstSign == 1 && secondSign == 1) {
+        sign = 0;
+        real.sign = 0;
+        return (real - *this);
+    }
+
     //   000008538959345.3829323232
     //   232328398429842.9238723000
 
@@ -356,7 +392,6 @@ BigReal BigReal::operator - (BigReal &real) {
     string n2 = real.num;
     string n3;
 
-    result.sign = 0;
 
     if (*this < real) {
         swap(n1, n2);
