@@ -92,13 +92,13 @@ bool BigReal::operator > (const BigReal &real) {
                 flag = false;
         }
 
-        if (sign) {
-            flag ^= 1;
-            return flag;
-        } else
-            return flag;
-
     }
+
+    if (sign) {
+        flag ^= 1;
+        return flag;
+    } else
+        return flag;
 }
 
 
@@ -151,6 +151,7 @@ bool BigReal::operator < (const BigReal &real) {
         isSmaller = false;
 
     }
+
     if (sign) {
         isSmaller ^= 1;
         return isSmaller;
@@ -160,7 +161,7 @@ bool BigReal::operator < (const BigReal &real) {
 }
 
 
-bool BigReal::operator==(const BigReal &real) {
+bool BigReal::operator == (const BigReal &real) {
     if (*this > real || *this < real)
         return false;
     else
@@ -168,7 +169,7 @@ bool BigReal::operator==(const BigReal &real) {
 }
 
 
-bool BigReal::operator!=(const BigReal &real) {
+bool BigReal::operator != (const BigReal &real) {
     if (*this == real)
         return false;
     else
@@ -293,12 +294,22 @@ BigReal BigReal::operator - (BigReal &real) {
 
     // 10005
     // 09842
+    string f1 = fraction;
+    string f2 = real.fraction;
+    string f3;
 
-//    if (*this > real || *this == real) {
+    string n1 = num;
+    string n2 = real.num;
+    string n3;
 
-        string f1 = fraction;
-        string f2 = real.fraction;
-        string f3;
+    result.sign = 0;
+
+    if (*this < real) {
+        swap(n1, n2);
+        swap(f1, f2);
+        result.sign = 1;
+    }
+
 
         int min = abs((int)f1.size() - (int)f2.size());
 
@@ -342,9 +353,6 @@ BigReal BigReal::operator - (BigReal &real) {
             carry = 0;
 
         //----------------------------------------
-        string n1 = num;
-        string  n2 = real.num;
-        string n3;
 
         int min2 = abs((int)n1.size() - (int)n2.size());
 
@@ -386,11 +394,9 @@ BigReal BigReal::operator - (BigReal &real) {
 
         result.num = n3;
         result.fraction = f3;
-        result.sign = 0;
 
         return result;
 
-//    }
 
 }
 
@@ -405,6 +411,8 @@ BigReal & BigReal::operator = (const BigReal& real) {
 }
 
 ostream & operator << (ostream &out, const BigReal &real) {
+    if (real.sign)
+        out << '-';
     out << real.num << '.' << real.fraction << endl;
     return out;
 }
