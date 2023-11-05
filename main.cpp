@@ -5,8 +5,8 @@ using namespace std;
 
 
 int main() {
-    BigReal n1("21.147");
-    BigReal n2("9985.452");
+    BigReal n1("15.39");
+    BigReal n2("-39.15");
     // 100
     // 055
     // -45

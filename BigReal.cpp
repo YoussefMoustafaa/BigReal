@@ -49,7 +49,7 @@ bool BigReal::operator > (const BigReal &real) {
     else if (sign > real.sign)
         return false;
 
-    bool flag = false;
+    bool isGreater = false;
 
     // .9854
     // .7621
@@ -57,48 +57,62 @@ bool BigReal::operator > (const BigReal &real) {
     // 55.134
     // 55.230
 
+    bool declared = false;
+
     if (n1.size() > n2.size())
-        flag = true;
+        isGreater = true;
     else if (n1.size() < n2.size())
-        flag = false;
+        isGreater = false;
     else {
         for (int i = 0; i < n1.size(); ++i) {
-            if (n1[i] > n2[i])
-                flag = true;
-            else if (n1[i] < n2[i])
-                flag = false;
+            if (n1[i] > n2[i]) {
+                isGreater = true;
+                declared = true;
+                break;
+            }
+            else if (n1[i] < n2[i]) {
+                isGreater = false;
+                declared = true;
+                break;
+            }
         }
         // if num = num then check fractions
+        if (!declared) {
+            string f1 = fraction;
+            string f2 = real.fraction;
 
-        string f1 = fraction;
-        string f2 = real.fraction;
+            int min = abs((int) f1.size() - (int) f2.size());
 
-        int min = abs((int)f1.size() - (int)f2.size());
-
-        if (f1.size() < f2.size()) {
-            for (int i = 0; i < min; ++i) {
-                f1 += '0';
+            if (f1.size() < f2.size()) {
+                for (int i = 0; i < min; ++i) {
+                    f1 += '0';
+                }
+            } else {
+                for (int i = 0; i < min; ++i) {
+                    f2 += '0';
+                }
             }
-        } else {
-            for (int i = 0; i < min; ++i) {
-                f2 += '0';
-            }
-        }
 
-        for (int i = 0; i < f1.size(); ++i) {
-            if (f1[i] > f2[i])
-                flag = true;
-            else if (f1[i] < f2[i])
-                flag = false;
+            for (int i = 0; i < f1.size(); ++i) {
+                if (f1[i] > f2[i]) {
+                    isGreater = true;
+                    break;
+                } else if (f1[i] < f2[i]) {
+                    isGreater = false;
+                    break;
+                }
+            }
+
         }
 
     }
 
-    if (sign) {
-        flag ^= 1;
-        return flag;
+    // if two numbers are -ve, (sign = 1)
+    if (sign && real.sign) {
+        isGreater ^= 1;
+        return isGreater;
     } else
-        return flag;
+        return isGreater;
 }
 
 
@@ -113,46 +127,58 @@ bool BigReal::operator < (const BigReal &real) {
         return false;
 
     bool isSmaller = false;
+    bool declared = false;
 
     if (n1.size() < n2.size())
         isSmaller = true;
     else if (n1.size() > n2.size())
-        isSmaller =false;
+        isSmaller = false;
     else {
         for (int i = 0; i < n1.size(); ++i) {
-            if (n1[i] < n2[i])
+            if (n1[i] < n2[i]) {
                 isSmaller = true;
-            else if (n1[i] > n2[i])
-                isSmaller = false;
-        }
-
-        string f1 = fraction;
-        string f2 = real.fraction;
-
-        int min = abs((int)f1.size() + (int)f2.size());
-
-        if (f1.size() < f2.size()) {
-            for (int i = 0; i < min; ++i) {
-                f1 += '0';
+                declared = true;
+                break;
             }
-        } else {
-            for (int i = 0; i < min; ++i) {
-                f2 += '0';
+            else if (n1[i] > n2[i]) {
+                isSmaller = false;
+                declared = true;
+                break;
             }
         }
 
-        for (int i = 0; i < f1.size(); ++i) {
-            if (f1[i] < f2[i])
-                isSmaller = true;
-            else if (f1[i] > f2[i])
-                isSmaller = false;
-        }
+        if (!declared) {
+            string f1 = fraction;
+            string f2 = real.fraction;
 
-        isSmaller = false;
+            int min = abs((int) f1.size() - (int) f2.size());
+
+            if (f1.size() < f2.size()) {
+                for (int i = 0; i < min; ++i) {
+                    f1 += '0';
+                }
+            } else {
+                for (int i = 0; i < min; ++i) {
+                    f2 += '0';
+                }
+            }
+
+            for (int i = 0; i < f1.size(); ++i) {
+                if (f1[i] < f2[i]) {
+                    isSmaller = true;
+                    break;
+                } else if (f1[i] > f2[i]) {
+                    isSmaller = false;
+                    break;
+                }
+            }
+
+        }
 
     }
 
-    if (sign) {
+    // if two numbers are -ve, (sign = 1)
+    if (sign && real.sign) {
         isSmaller ^= 1;
         return isSmaller;
     } else
@@ -176,12 +202,41 @@ bool BigReal::operator != (const BigReal &real) {
         return true;
 }
 
+int negative_sign = 0;
 
 
 
 BigReal BigReal::operator + (BigReal &real) {
 
     BigReal result;
+    result.sign = 0;
+
+    int firstSign = sign;
+    int secondSign = real.sign;
+    // 1st -ve, 2nd +ve
+
+    // -4 + 3
+    // 7 - 4
+    // 3 - 4
+    if (firstSign > secondSign) {
+        this->sign = 0;
+        return (real - *this);
+    }
+    // 1st +ve, 2nd -ve
+    // 7 - 4 = 3
+    else if (firstSign < secondSign) {
+        real.sign = 0;
+        return (*this - real);
+    }
+    // 1st -ve, 2nd -ve
+    // -4 + (-5)
+    // 4 + 5 = 9 * (-)
+    else if (firstSign == 1 && secondSign == 1) {
+        this->sign = 0;
+        real.sign = 0;
+        result.sign = 1;
+    }
+
     //   000008538959345.3829323232
     //   232328398429842.9238723000
 
@@ -279,7 +334,6 @@ BigReal BigReal::operator + (BigReal &real) {
 
     result.num = n3;
     result.fraction = f3;
-    result.sign = 0;
 
     return result;
 
