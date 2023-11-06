@@ -5,49 +5,38 @@ using namespace std;
 
 
 BigReal::BigReal(double realNumber) {   // default constructor
-    string s = to_string(realNumber);
-    int i = 0;
-    if (s[0] == '-'){
-        this->sign = 1;
-        i++;
-    }
-    for (; i < s.size(); ++i) {
-        if (s[i] == '.') {
-            i++;
-            break;
-        }
-        this->num += s[i];
-    }
-    for (; i < s.size(); ++i) {
-        if (s[i] == '0')
-            break;
-        this->fraction += s[i];
-    }
-}
-
-
-BigReal::BigReal(long long n) {
 }
 
 
 BigReal::BigReal(string realNumber) {   // constructor
-    bool flag = false;
-    int i = 0;
-    if (realNumber[0] == '-') {
-        sign = 1;
-        i++;
-    }
-    for (;i < realNumber.size(); ++i) {
-        if (realNumber[i] == '.') {
-            flag = true;
-            continue;
+
+    if ( regex_match(realNumber, regex("[+-]?\\d*.?\\d+")) ) {
+        string s = realNumber;
+        int i = 0;
+        if (s[0] == '-'){
+            sign = 1;
+            i++;
+        }
+        for (; i < s.size(); ++i) {
+            if (s[i] == '.') {
+                i++;
+                break;
+            }
+            num += s[i];
+        }
+        for (; i < s.size(); ++i) {
+            if (s[i] == '0')
+                break;
+            fraction += s[i];
         }
 
-        if (!flag)
-            num += realNumber[i];
-        else
-            fraction += realNumber[i];
+        if (num.size() == 0)
+            num = "0";
+        if (fraction.size() == 0)
+            fraction = "0";
     }
+    else
+        cout << "Invalid real number.\n";
 }
 
 
@@ -58,8 +47,11 @@ BigReal::BigReal(const BigReal &real) {   // copy constructor
 }
 
 
-int BigReal::size() {
-
+unsigned long long BigReal::size() {
+    unsigned long long sz;
+    sz += num.size();
+    sz += fraction.size();
+    return sz;
 }
 
 
