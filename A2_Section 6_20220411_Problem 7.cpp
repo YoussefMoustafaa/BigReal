@@ -34,10 +34,8 @@ bool FormsDominoChain(vector<dominoT>& d) {
     for (int i = 1; i < 7; ++i) {
         if (counts[i] == 1)
             ones++;
-        else if (counts[i] % 2)
-            return false;
     }
-    if (ones == 2)
+    if (ones <= 2)
         return true;
     else
         return false;
@@ -52,21 +50,22 @@ dominoT getFirstDomino(vector<dominoT>& d)
             return d[i];
         }
     }
-    
+
     return d[0];
 }
 
-bool vis[N] = {0};
+bool vis[1000] = {0};
 
 
 void printDominos(vector<dominoT>& sol)
 {
-    for (int i = 0; i < 4; i++)
+    int sz = sol.size();
+    for (int i = 0; i < sz - 1; i++)
     {
         cout << sol[i].leftDots << "|" << sol[i].rightDots << " - ";
     }
-    cout << sol[4].leftDots << "|" << sol[4].rightDots << endl;
-    
+    cout << sol[sz-1].leftDots << "|" << sol[sz-1].rightDots << endl;
+
 }
 
 bool checkConnection(vector<dominoT>& d, int idx, vector<dominoT>& sol)
@@ -99,11 +98,11 @@ void FormDominos(vector<dominoT>& d)
 
 bool sortDominos(vector<dominoT>& d, int idx, vector<dominoT>& sol)
 {
-    if (sol.size() == 5) {
+    if (sol.size() == d.size()) {
         return true;
     }
 
-    if (idx == 5) {
+    if (idx == d.size()) {
         idx = 0;
     }
 
@@ -114,6 +113,10 @@ bool sortDominos(vector<dominoT>& d, int idx, vector<dominoT>& sol)
     if (checkConnection(d, idx, sol)) {
         sol.push_back(d[idx]);
         vis[d[idx].index] = 1;
+        if (idx == d.size()-1 && sol.size() != d.size()) {
+            sol.pop_back();
+            vis[d[idx].index] = 0;
+        }
         sortDominos(d, ++idx, sol);
         return true;
     }
@@ -127,7 +130,34 @@ bool sortDominos(vector<dominoT>& d, int idx, vector<dominoT>& sol)
 
 int main() {
 
-    vector<dominoT> d = {{1,4}, {2, 6}, {4, 4}, {6, 1}, {4, 3}};
+    // vector<dominoT> d = {{1,4}, {2, 6}, {4, 4}, {6, 1}, {4, 3}};
+
+    cout << "Enter number of dominos: ";
+    int n;
+    cin >> n;
+    cout << "Enter your dominos:\n "
+            "separate the dots with (|) for example: 2|6 6|3 \n";
+
+    vector<dominoT> d(n);
+
+    string s;
+    cin.ignore();
+    getline(cin, s);
+
+    int flip = 1;
+    int j = 0;
+
+    for (char& i : s) {
+        if (isdigit(i) && flip) {
+            d[j].leftDots = int(i - '0');
+            flip ^= 1;
+        } else if (isdigit(i) && !flip) {
+            d[j].rightDots = int(i - '0');
+            flip ^= 1;
+            j++;
+        }
+    }
+
 
     if (FormsDominoChain(d)) {
         cout << "Yes\n";
@@ -138,3 +168,6 @@ int main() {
 
     return 0;
 }
+
+// 6
+// 2|4 4|5 0|0 5|5 5|0 0|1
