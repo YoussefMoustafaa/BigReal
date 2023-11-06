@@ -5,6 +5,7 @@
 // ID: 20220222
 // TA: Nardeen Mokhless / Maya Ahmed
 #include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
 int main() {
     vector<string>v;

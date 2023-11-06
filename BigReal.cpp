@@ -25,8 +25,6 @@ BigReal::BigReal(string realNumber) {   // constructor
             num += s[i];
         }
         for (; i < s.size(); ++i) {
-            if (s[i] == '0')
-                break;
             fraction += s[i];
         }
 

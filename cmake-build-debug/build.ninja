@@ -61,12 +61,6 @@ build CMakeFiles/BigReal_A2.dir/BigReal.cpp.obj: CXX_COMPILER__BigReal_A2_unscan
   OBJECT_DIR = CMakeFiles\BigReal_A2.dir
   OBJECT_FILE_DIR = CMakeFiles\BigReal_A2.dir
 
-build CMakeFiles/BigReal_A2.dir/A2_Section_6_20220467_Problem_12.cpp.obj: CXX_COMPILER__BigReal_A2_unscanned_Debug C$:/Users/Dell/CLionProjects/BigReal-A2/A2_Section$ 6_20220467_Problem$ 12.cpp || cmake_object_order_depends_target_BigReal_A2
-  DEP_FILE = CMakeFiles\BigReal_A2.dir\A2_Section_6_20220467_Problem_12.cpp.obj.d
-  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\BigReal_A2.dir
-  OBJECT_FILE_DIR = CMakeFiles\BigReal_A2.dir
-
 
 # =============================================================================
 # Link build statements for EXECUTABLE target BigReal_A2
@@ -75,7 +69,7 @@ build CMakeFiles/BigReal_A2.dir/A2_Section_6_20220467_Problem_12.cpp.obj: CXX_CO
 #############################################
 # Link the executable BigReal_A2.exe
 
-build BigReal_A2.exe: CXX_EXECUTABLE_LINKER__BigReal_A2_Debug CMakeFiles/BigReal_A2.dir/main.cpp.obj CMakeFiles/BigReal_A2.dir/BigReal.cpp.obj CMakeFiles/BigReal_A2.dir/A2_Section_6_20220467_Problem_12.cpp.obj
+build BigReal_A2.exe: CXX_EXECUTABLE_LINKER__BigReal_A2_Debug CMakeFiles/BigReal_A2.dir/main.cpp.obj CMakeFiles/BigReal_A2.dir/BigReal.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\BigReal_A2.dir

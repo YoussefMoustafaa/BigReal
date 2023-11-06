@@ -53,8 +53,7 @@
 			"sourceIndexes" : 
 			[
 				0,
-				1,
-				2
+				1
 			]
 		}
 	],
@@ -92,8 +91,7 @@
 			"sourceIndexes" : 
 			[
 				0,
-				1,
-				2
+				1
 			]
 		}
 	],
@@ -109,12 +107,6 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "BigReal.cpp",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "A2_Section 6_20220467_Problem 12.cpp",
 			"sourceGroupIndex" : 0
 		}
 	],

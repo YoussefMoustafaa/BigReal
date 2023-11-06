@@ -1,7 +1,6 @@
 # ninja log v5
-6	10023	7209631157385523	CMakeFiles/BigReal_A2.dir/main.cpp.obj	b8ded13bc624923c
-13994	16725	7209635626286377	BigReal_A2.exe	84f3a7df02b91fc5
-8	13993	7209635598829652	CMakeFiles/BigReal_A2.dir/BigReal.cpp.obj	c8e2d25bc7bc2cad
-16	2420	7209653780249676	CMakeFiles/BigReal_A2.dir/A2_Section_6_20220467_Problem_12.cpp.obj	bea279de0f18fff2
+3	2197	7209798965648118	BigReal_A2.exe	84f3a7df02b91fc5
 6	6221	7209653818315413	CMakeFiles/BigReal_A2.dir/main.cpp.obj	b8ded13bc624923c
+1	239	7209853597465350	build.ninja	9a7ccc48de16d269
 22	10248	7209653858372370	CMakeFiles/BigReal_A2.dir/BigReal.cpp.obj	c8e2d25bc7bc2cad
+16	2420	7209653780249676	CMakeFiles/BigReal_A2.dir/A2_Section_6_20220467_Problem_12.cpp.obj	bea279de0f18fff2
