@@ -3,7 +3,26 @@
 
 using namespace std;
 
+
 BigReal::BigReal(double realNumber) {   // default constructor
+    string s = to_string(realNumber);
+    int i = 0;
+    if (s[0] == '-'){
+        this->sign = 1;
+        i++;
+    }
+    for (; i < s.size(); ++i) {
+        if (s[i] == '.') {
+            i++;
+            break;
+        }
+        this->num += s[i];
+    }
+    for (; i < s.size(); ++i) {
+        if (s[i] == '0')
+            break;
+        this->fraction += s[i];
+    }
 }
 
 
@@ -504,12 +523,15 @@ BigReal & BigReal::operator = (const BigReal& real) {
     return *this;
 }
 
+
 ostream & operator << (ostream &out, const BigReal &real) {
     if (real.sign)
         out << '-';
     out << real.num << '.' << real.fraction << endl;
     return out;
 }
+
+
 
 
 
